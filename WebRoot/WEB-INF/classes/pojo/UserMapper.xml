@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nsUser">
+
+
+<!--根据id修改  -->
+<delete id="delUser" parameterType="int" >
+	DELETE FROM t_user WHERE ID = #{id}
+</delete>
+
+
+
+<!--根据id查找管理员 用于修改 -->
+<select id="selectById" parameterType="int" resultType="User">
+	select * from t_user where id=#{id}
+</select>
+<update id="updateAdmin" parameterType="User">
+	UPDATE t_user SET NAME=#{name},PASSWORD=#{password} WHERE id=#{id};
+</update>
+	
+	
+	<!--查询用于分页  -->
+	<select id="ByPage" parameterType="User" resultType="User">
+		SELECT * FROM t_user 
+		<where>
+			<if test="name!=null">AND name = #{name}</if>
+		</where>
+		limit #{index},#{size}
+	</select>
+
+
+
+	<!--展示所有管理员信息  -->
+	<select id="findByStatus" resultType="User">
+		SELECT * FROM t_user WHERE STATUS=1
+	</select>
+
+
+
+
+
+
+
+
+  <select id="findUserByLogin" parameterType="User" resultType="User">
+  <![CDATA[
+  	select id,name,password,age,birthday,status from t_user
+  	where name=#{name} and password=#{password} 
+  ]]>
+  </select>
+  
+  <!--注册  -->  
+	<insert id="addUser" parameterType="User">
+	<!-- <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select id from t_user order by id desc limit 0,1
+	</selectKey> -->
+		insert into t_user values(null,#{name},#{password},#{age},#{birthday},1)
+	</insert> 
+	<!--ajax登录  -->
+	
+	<select id="Ajax1" parameterType="User" resultType="int">
+  		SELECT COUNT(*) FROM t_user where name=#{name}
+  	</select>
+	 
+</mapper> 

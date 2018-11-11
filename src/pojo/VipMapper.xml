@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nsVip">
+
+<!--用于添加充值记录,更改会员的余额信息  -->
+<update id="uodateVipRemain" parameterType="Vip">
+UPDATE vip SET remain=#{remain} WHERE id=#{id}
+</update>
+<!--用于添加充值记录,充值会员,验证是否存在   -->
+<select id="selByRecord" parameterType="String" resultType="Vip">
+	select * from vip where name=#{name}
+</select>
+
+
+
+
+<!--跟与id 得到一个vip,再修改这个vip  -->
+<select id="getOneVip" parameterType="int" resultType="Vip">
+	select * from vip where id = #{id}
+</select>
+<update id="updateVip" parameterType="Vip">
+	UPDATE vip SET name=#{name},number=#{number},remain=#{remain},type =#{type} WHERE id =#{id}
+</update>
+
+
+
+
+<!--查询所有vip用户 分页,模糊查询(姓名,卡号)  -->
+	<!--分页查询 获取总个数 -->
+	<select id="pageCount" parameterType="Vip" resultType="_int">
+		select count(*) from vip
+		<where>
+			<if test="number!=null"> AND number = #{number} </if>
+			<if test="name!=null"> AND name LIKE '%${name}%' </if>
+		</where>
+	</select>
+
+	<select id="findByPage" parameterType="Vip" resultType="Vip">
+		select * from vip
+		<where>
+			<if test="number!=null"> AND number = #{number} </if>
+			<if test="name!=null"> AND name LIKE '%${name}%' </if>
+		</where>
+		limit #{index},#{size} 
+	</select>
+
+
+
+
+
+
+</mapper>

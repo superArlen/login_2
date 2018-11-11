@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nsRecord">
+<!--查询所有record记录  -->
+<select id="selectRecord" resultType="Record">
+	SELECT u.name,v.name,r.* FROM record r,t_user u,vip v WHERE r.user_id=u.id AND r.vip_id=v.id order by `time` desc 
+</select>
+
+
+<!--插入record 记录  -->
+<insert id="addRecord" parameterType="Record">
+	INSERT INTO record VALUES (NULL,#{user_id},#{amount},#{time},#{vip_id})
+</insert>
+
+
+</mapper>

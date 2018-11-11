@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nsRole">
+
+<!--添加role角色  -->
+<insert id="addRole" parameterType="Role">
+	insert into role values(null,#{name})
+</insert>
+<!--查找一个role 用于修改  -->
+<select id="selectOneRole" resultType="Role">
+	SELECT * FROM role WHERE id=#{id}
+</select>
+<update id="updateRole" parameterType="Role">
+	UPDATE role SET name=#{name} WHERE id =#{id}
+</update>
+
+
+
+<!--查找所有role  -->
+<select id="selectAllRole" resultType="Role">
+	SELECT * FROM role
+</select>
+
+</mapper>

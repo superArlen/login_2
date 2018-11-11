@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nsImages">
+ <!--展示超级管理员头像所有表  -->
+	<select id="showImages" resultType="Images">
+		SELECT * FROM images where user_id=1
+	</select>
+	<!--展示管理员头像所有表  -->
+	<select id="showAdminImages" resultType="Images">
+		<![CDATA[
+		SELECT * FROM images where user_id > 1
+		]]>
+	</select>
+ <!--根据上传到服务器的名字更改数据库位置  -->
+ <update id="updateWeiz" parameterType="int">
+ 	update images set img_weiz=#{img_weiz} where user_id=#{user_id};
+ </update>
+ 
+ 
+ 
+ 
+</mapper>
